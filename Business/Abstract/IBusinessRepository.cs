@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IBusinessRepository<T> where T :class
+    public interface IBusinessRepository<T> where T : class, new()
     {
         List<T> GetAll();
         void Add(T business);
