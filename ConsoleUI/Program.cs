@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Business.Abstract;
 using Business.Concrete;
+using Core.DataAccess.EntityFramework;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -14,12 +16,42 @@ namespace ConsoleUI
             // AddCar();
             // GetByColorId();
             //GetCarFullDetail();
+            UserAddTest();
+            //CustomerAddTest();
+
+
         }
 
-        private static void GetCarFullDetail()
+        private static void CustomerAddTest()
         {
-            CarManager carManager = new CarManager(new EfCarDal(), new RuleManager());
-            foreach (var car in carManager.GetCarDetails())
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(new Customer()
+            {
+                CompanyName = "HalilCompany",
+                UserId = 1
+            });
+            customerManager.Add(new Customer()
+            {
+                CompanyName = "GulCompany",
+                UserId = 2
+            });
+        }
+        private static void UserAddTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal(), new RuleManager());
+            userManager.Add(new User()
+            {
+                FirstName = "Fatma Gül",
+                LastName = "Altun",
+                Email = "fgul@hotmail.com",
+                Password = "123234567"
+            });
+        }
+
+        private static void GetCarFullDetail( )
+        {
+            ICarService carManager = new CarManager(new EfCarDal(), new RuleManager());
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.BrandName + " " + car.Description + " "
                                   + car.ColorName + " " + car.ModelYear + " " + car.DailyPrice);
@@ -29,7 +61,7 @@ namespace ConsoleUI
         private static void GetByColorId()
         {
             CarManager carManager = new CarManager(new EfCarDal(), new RuleManager());
-            foreach (var car in carManager.GetCarsColorId(1))
+            foreach (var car in carManager.GetCarsColorId(1).Data)
             {
                 Console.WriteLine(car.Description);
             }
@@ -45,7 +77,7 @@ namespace ConsoleUI
 
             carManager.Add(car);
 
-            foreach (var item in carManager.GetAll())
+            foreach (var item in carManager.GetAll().Data)
             {
                 System.Console.WriteLine(item.Description);
             }

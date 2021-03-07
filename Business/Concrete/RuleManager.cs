@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Core.Utilities.Results.Concrete;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 
 namespace Business.Concrete
@@ -12,7 +15,7 @@ namespace Business.Concrete
         {
             if (car.Description.Length < 2)
             {
-                throw new Exception("Araba Modeli minimum 2 karakter girilmelidir.");
+                throw new Exception("Car model must be a minimum of 2 characters ");
             }
         }
 
@@ -20,8 +23,15 @@ namespace Business.Concrete
         {
             if (car.DailyPrice <= 0)
             {
-                throw new Exception("Araç için 0 TL'den büyük bir fiyat girilmelidir.");
+                throw new Exception("Car price must be greater than 0");
             }
         }
+
+        public void RentACar(Rental rental)
+        {
+
+            throw new NotImplementedException();
+        }
+
     }
 }

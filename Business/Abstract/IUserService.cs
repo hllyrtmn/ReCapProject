@@ -5,12 +5,7 @@ using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    public interface IRulesService
+    public interface IUserService : IBusinessRepository<User>
     {
-        void NameRule(Car car);
-        void PriceRule(Car car);
-        void RentACar(Rental rental);
-
-
     }
 }
