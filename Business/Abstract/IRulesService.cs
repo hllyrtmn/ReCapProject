@@ -10,7 +10,5 @@ namespace Business.Abstract
         void NameRule(Car car);
         void PriceRule(Car car);
         void RentACar(Rental rental);
-
-
     }
 }

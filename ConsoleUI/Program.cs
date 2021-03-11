@@ -16,10 +16,20 @@ namespace ConsoleUI
             // AddCar();
             // GetByColorId();
             //GetCarFullDetail();
-            UserAddTest();
+            //UserAddTest();
             //CustomerAddTest();
 
+            //RentalAdd();
 
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            rentalManager.Update(new Rental{RentalId = 1,ReturnDate = DateTime.Today,CarId = 2,CustomerId = 2,RentDate = DateTime.Now});
+        }
+
+        private static void RentalAdd()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+            rentalManager.Add(new Rental() {CustomerId = 1, CarId = 2, RentDate = DateTime.Now});
         }
 
         private static void CustomerAddTest()
