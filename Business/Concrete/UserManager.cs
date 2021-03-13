@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constraint.Message;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -13,12 +16,10 @@ namespace Business.Concrete
     public class UserManager : IUserService
     { 
         IUserDal _userDal;
-        IRulesService _rulesService;
 
-        public UserManager(IUserDal userDal, IRulesService rulesService)
+        public UserManager(IUserDal userDal)
         {
             _userDal = userDal;
-            _rulesService = rulesService;
         }
 
 
@@ -27,8 +28,10 @@ namespace Business.Concrete
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserListed);
         }
 
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User business)
         {
+
             _userDal.Add(business);
            return new SuccessResult(Messages.UserAdded);
         }

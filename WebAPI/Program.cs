@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Business.DependencyResolvers.Autofac;
 
 namespace WebAPI
 {
@@ -18,6 +21,14 @@ namespace WebAPI
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                
+       /**/         .UseServiceProviderFactory(new AutofacServiceProviderFactory()) //25-29 arasý IoC yi AutofacBusiness e taþýmaya konfigüre etmeye yarýyor. burasý standart bir kalýp gibidir.
+       /**/         .ConfigureContainer<ContainerBuilder>(builder=>
+       /**/         {
+       /**/             builder.RegisterModule(new AutofacBusinessModule());
+       /**/         })
+
+
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

@@ -4,25 +4,27 @@ using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.Constraint.Message;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 
 namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-        IRulesService _rules;
 
         
 
-        public CarManager(ICarDal carDal, IRulesService rules)
+        public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
-            _rules = rules;
         }
 
 
@@ -35,11 +37,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car business)
         {
-            _rules.NameRule(business);
-            _rules.PriceRule(business);
-            
             _carDal.Add(business);
             return new SuccessResult(Messages.CarAdded);
 
