@@ -48,7 +48,7 @@ namespace ConsoleUI
         }
         private static void UserAddTest()
         {
-            UserManager userManager = new UserManager(new EfUserDal(), new RuleManager());
+            UserManager userManager = new UserManager(new EfUserDal());
             userManager.Add(new User()
             {
                 FirstName = "Fatma Gül",
@@ -60,7 +60,7 @@ namespace ConsoleUI
 
         private static void GetCarFullDetail( )
         {
-            ICarService carManager = new CarManager(new EfCarDal(), new RuleManager());
+            ICarService carManager = new CarManager(new EfCarDal());
             foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.BrandName + " " + car.Description + " "
@@ -70,7 +70,7 @@ namespace ConsoleUI
 
         private static void GetByColorId()
         {
-            CarManager carManager = new CarManager(new EfCarDal(), new RuleManager());
+            CarManager carManager = new CarManager(new EfCarDal());
             foreach (var car in carManager.GetCarsColorId(1).Data)
             {
                 Console.WriteLine(car.Description);
@@ -79,7 +79,7 @@ namespace ConsoleUI
 
         private static void AddCar()
         {
-            ICarService carManager = new CarManager(new EfCarDal(), new RuleManager());
+            ICarService carManager = new CarManager(new EfCarDal());
             //IBrandService brandService = new BrandManager(new EfBrandDal());
             //IColorService colorService = new ColorManager(new EfColorDal());
 

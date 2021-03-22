@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Constraint.Message;
+using Entities.Concrete;
 using FluentValidation;
 
 namespace Core.CrossCuttingConcerns.Validation
@@ -7,8 +8,8 @@ namespace Core.CrossCuttingConcerns.Validation
     {
         public BrandValidator()
         {
-            RuleFor(b => b.BrandName).NotEmpty().WithMessage("Brand name is can not empty");
-            RuleFor(b => b.BrandName).MinimumLength(2).WithMessage("Brand name must be greater than two characters ");
+            RuleFor(b => b.BrandName).NotEmpty().WithMessage(Messages.BrandNameNotEmpty);
+            RuleFor(b => b.BrandName).MinimumLength(2).WithMessage(Messages.BrandNameMinimumLength);
         }  
     }
 }

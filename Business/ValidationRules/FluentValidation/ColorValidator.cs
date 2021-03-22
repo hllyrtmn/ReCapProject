@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Constraint.Message;
+using Entities.Concrete;
 using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
@@ -7,8 +8,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ColorValidator()
         {
-            RuleFor(c => c.ColorName).NotEmpty().WithMessage("Color name is can not empty");
-            RuleFor(c => c.ColorName).MinimumLength(2).WithMessage("Color name must be greater than two characters ");
+            RuleFor(c => c.ColorName).NotEmpty().WithMessage(Messages.ColorNameNotEmpty);
+            RuleFor(c => c.ColorName).MinimumLength(2).WithMessage(Messages.ColorNameMinimumLength);
         }
         
     }

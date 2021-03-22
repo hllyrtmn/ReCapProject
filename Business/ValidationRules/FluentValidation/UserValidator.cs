@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Business.Constraint.Message;
 using Entities.Concrete;
 using FluentValidation;
 
@@ -8,19 +9,19 @@ namespace Business.ValidationRules.FluentValidation
     {
         public UserValidator()
         {
-            RuleFor(u => u.FirstName).NotEmpty().WithMessage("First name is can not empty");
-            RuleFor(c => c.FirstName).MinimumLength(3).WithMessage("First name must be greater than three characters ");
+            RuleFor(u => u.FirstName).NotEmpty().WithMessage(Messages.UserFirstNameNotEmpty);
+            RuleFor(c => c.FirstName).MinimumLength(3).WithMessage(Messages.UserFirstNameMinimumLength);
 
-            RuleFor(u => u.LastName).NotEmpty().WithMessage("Last name is can not empty");
-            RuleFor(c => c.LastName).MinimumLength(3).WithMessage("Last name must be greater than three characters ");
+            RuleFor(u => u.LastName).NotEmpty().WithMessage(Messages.UserLastNameNotEmpty);
+            RuleFor(c => c.LastName).MinimumLength(3).WithMessage(Messages.UserLastNameMinimumLength);
 
-            RuleFor(u => u.Email).NotEmpty().WithMessage("Email is can not empty");
-            RuleFor(c => c.Email).MinimumLength(3).WithMessage("Email must be greater than three characters ");
-            RuleFor(c => c.Email).EmailAddress().WithMessage("A valid email address is required.");
+            RuleFor(u => u.Email).NotEmpty().WithMessage(Messages.UserEmailNotEmpty);
+            RuleFor(c => c.Email).MinimumLength(3).WithMessage(Messages.UserMinimumLength);
+            RuleFor(c => c.Email).EmailAddress().WithMessage(Messages.UserEmailEmailAddress);
 
 
-            RuleFor(c => c.Password).MinimumLength(8).WithMessage("Password must be greater than eight characters ");
-            RuleFor(u => u.Password).NotEmpty().WithMessage("Password is can not empty");
+            RuleFor(c => c.Password).MinimumLength(8).WithMessage(Messages.UserPasswordMinimumLength);
+            RuleFor(u => u.Password).NotEmpty().WithMessage(Messages.UserPasswordNotEmpty);
         }
 
     }

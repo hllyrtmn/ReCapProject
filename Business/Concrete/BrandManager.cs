@@ -45,6 +45,11 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandUpdated);
         }
 
+        public IDataResult<Brand> Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IDataResult<Brand> GetById(int id)
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(b=>b.BrandId==id),Messages.BrandById);

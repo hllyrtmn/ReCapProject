@@ -12,5 +12,9 @@
     <ProjectReference Include="..\Business\Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="root\Images\" />
+  </ItemGroup>
+
 
 </Project>
