@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constraint.Message;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -33,8 +34,9 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
         }
-
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(CarValidator))]
+
         public IResult Add(Car business)
         {
             _carDal.Add(business);
@@ -56,7 +58,7 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetById(int id)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id),Messages.CarById);
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == id), Messages.CarById);
         }
 
         public IDataResult<List<Car>> GetCarsBrandId(int brandId)
@@ -66,12 +68,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetCarsColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>( _carDal.GetAll(c => c.ColorId == colorId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>( _carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
     }
 }

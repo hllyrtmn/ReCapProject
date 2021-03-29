@@ -47,17 +47,17 @@ namespace ConsoleUI
                 UserId = 2
             });
         }
-        private static void UserAddTest()
-        {
-            UserManager userManager = new UserManager(new EfUserDal());
-            userManager.Add(new User()
-            {
-                FirstName = "Fatma Gül",
-                LastName = "Altun",
-                Email = "fgul@hotmail.com",
-                Password = "123234567"
-            });
-        }
+        //private static void UserAddTest()
+        //{
+        //    UserManager userManager = new UserManager(new EfUserDal());
+        //    userManager.Add(new User()
+        //    {
+        //        FirstName = "Fatma Gül",
+        //        LastName = "Altun",
+        //        Email = "fgul@hotmail.com",
+        //        Password = "123234567"
+        //    });
+        //}
 
         private static void GetCarFullDetail( )
         {

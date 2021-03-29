@@ -22,8 +22,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-
-        [Authorize]
         public IActionResult GetAll()
         {
             var result = _carService.GetAll();
@@ -35,7 +33,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbyid")]
-        [Authorize(Roles = "user")]
 
         public IActionResult GetById(int id)
         {
@@ -87,8 +84,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-
-        [Authorize (Roles = "admin")]
         public IActionResult Add(Car car)
         {
             var result = _carService.Add(car);

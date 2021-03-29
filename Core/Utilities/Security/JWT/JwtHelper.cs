@@ -17,14 +17,13 @@ namespace Core.Utilities.Security.JWT
     {
         public IConfiguration Configuration { get; set; }
         public DateTime _accessTokenExpiration;
-
         private TokenOptions _tokenOptions;
 
         public JwtHelper(IConfiguration configuration)
         {
             _tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
-            Configuration = configuration;
-            _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
+                Configuration = configuration;
+                _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
 
         }
 
