@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -21,6 +22,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
+
+        [Authorize]
         public IActionResult GetAll()
         {
             var result = _carService.GetAll();
@@ -32,6 +35,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbyid")]
+        [Authorize(Roles = "user")]
+
         public IActionResult GetById(int id)
         {
             var result = _carService.GetById(id);
@@ -83,6 +88,7 @@ namespace WebAPI.Controllers
 
         [HttpPost("add")]
 
+        [Authorize (Roles = "admin")]
         public IActionResult Add(Car car)
         {
             var result = _carService.Add(car);

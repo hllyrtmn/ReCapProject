@@ -11,42 +11,33 @@ namespace Core.Utilities.Helpers
     {
         public static string Add(IFormFile file)
         {
-            var result = newPath(file);
-            try
+
+            var tempPath = Path.GetTempFileName();
+            if (file.Length > 0)
             {
-                var sourcePath = Path.GetTempFileName();
-                if (file.Length > 0)
-                    using (var stream = new FileStream(sourcePath, FileMode.Create))
-                        file.CopyTo(stream);
-                File.Move(sourcePath, result.newPath);
+                using (FileStream fileStream = new FileStream(tempPath, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
             }
-            catch (Exception exception)
-            {
-                return exception.Message;
-            }
-            return result.path2;
+            var fileNewPath = newPath(file);
+            File.Move(tempPath, fileNewPath);
+            return fileNewPath;
 
         }
 
-        public static string Update(string sourcePath, IFormFile file)
+        public static string Update(string updatedPath, IFormFile file)
         {
-            var result = newPath(file);
-            try
+            var path = newPath(file).ToString();
+            if (updatedPath.Length > 0)
             {
-                if (sourcePath.Length > 0)
+                using (FileStream fileStream = new FileStream(path, FileMode.Create))
                 {
-                    using (var stream = new FileStream(result.newPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
+                    file.CopyTo(fileStream);
                 }
-                File.Delete(sourcePath);
             }
-            catch (Exception exception)
-            {
-                return exception.Message;
-            }
-            return result.path2;
+            File.Delete(updatedPath);
+            return path;
         }
 
 
@@ -63,19 +54,15 @@ namespace Core.Utilities.Helpers
 
             return new SuccessResult();
         }
-        public static (string newPath, string path2) newPath(IFormFile file)
+        public static string newPath(IFormFile file)
         {
             FileInfo ff = new FileInfo(file.FileName);
             string fileExtension = ff.Extension;
 
-            var newPath = Guid.NewGuid() + fileExtension;
 
-
-            string path = Environment.CurrentDirectory + @"\root\images";
-
-            string result = $@"{path}\{newPath}";
-
-            return (result, $"\\images\\{newPath}");
+            var currentLocation = Environment.CurrentDirectory + @"\root\Images\";
+            var path = Guid.NewGuid().ToString() + fileExtension;
+            return currentLocation + path;
         }
     }
 }
