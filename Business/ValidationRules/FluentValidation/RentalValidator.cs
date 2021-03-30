@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using Business.Constraint.Message;
+using Business.Constant.Message;
 using Entities.Concrete;
 using FluentValidation;
 

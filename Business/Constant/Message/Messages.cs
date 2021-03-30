@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Core.Entities.Concrete;
 
-namespace Business.Constraint.Message
+namespace Business.Constant.Message
 {
     public class Messages
     {
@@ -97,5 +97,6 @@ namespace Business.Constraint.Message
         public static string UserAlreadyExist = "User already exist";
         public static string UserRegistered = "User was successfully registered";
         public static string AccessTokenCreated = "Token was created";
+        public static string NotAutorized = "You are not authorized";
     }
 }

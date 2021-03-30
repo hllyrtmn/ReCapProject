@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.BusinessAspect.Autofac;
-using Business.Constraint.Message;
+using Business.Constant.Message;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;

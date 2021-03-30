@@ -1,4 +1,5 @@
-using Core.DependencResolvers;
+
+using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Builder;
@@ -27,10 +28,7 @@ namespace WebAPI
         {
             services.AddControllers();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:3000"));
-            });
+           
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
@@ -68,8 +66,6 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader());
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -82,6 +78,7 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
+            //23.10 dersteyiz
         }
     }
 }

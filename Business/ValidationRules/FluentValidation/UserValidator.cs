@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using Business.Constraint.Message;
+using Business.Constant.Message;
 using Core.Entities.Concrete;
 using Entities.Concrete;
 using FluentValidation;
@@ -19,10 +19,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(u => u.Email).NotEmpty().WithMessage(Messages.UserEmailNotEmpty);
             RuleFor(c => c.Email).MinimumLength(3).WithMessage(Messages.UserMinimumLength);
             RuleFor(c => c.Email).EmailAddress().WithMessage(Messages.UserEmailEmailAddress);
-
-
-            //RuleFor(c => c.Password).MinimumLength(8).WithMessage(Messages.UserPasswordMinimumLength);
-            //RuleFor(u => u.Password).NotEmpty().WithMessage(Messages.UserPasswordNotEmpty);
+            
         }
 
     }
