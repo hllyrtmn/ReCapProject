@@ -108,7 +108,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-
         public IActionResult Update(Car car)
         {
             var result = _carService.Update(car);
@@ -118,6 +117,18 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(result);
+        }
+
+        [HttpPost("transactiontest")]
+
+        public IActionResult TransactionTest(Car car)
+        {
+            var result = _carService.Add(car);
+
+            return Ok(result);
+
+
+
         }
 
 

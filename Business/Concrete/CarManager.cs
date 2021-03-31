@@ -7,6 +7,8 @@ using Business.BusinessAspect.Autofac;
 using Business.Constant.Message;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
@@ -39,6 +41,7 @@ namespace Business.Concrete
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarService.Get")]
+        [PerformanceAspect(10)]
         public IResult Add(Car business)
         {
             _carDal.Add(business);
@@ -78,6 +81,18 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        [TransactionScopeAspect]
+        public IResult TransactionTest(Car business)
+        {
+            _carDal.Add(business);
+            if (business.DailyPrice<50)
+            {
+                throw new Exception("");
+            }
+            _carDal.Add(business);
+            return null;
         }
     }
 }
