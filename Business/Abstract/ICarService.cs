@@ -8,8 +8,13 @@ using Entities.DTOs;
 
 namespace Business.Abstract
 {
-    public interface ICarService : IBusinessRepository<Car>
+    public interface ICarService
     {
+        IDataResult<List<Car>> GetAll();
+        IResult Add(Car business);
+        IResult Delete(Car business);
+        IResult Update(Car business);
+        IDataResult<Car> GetById(int id);
         IDataResult<List<Car>> GetCarsBrandId(int brandId);
         IDataResult<List<Car>> GetCarsColorId(int colorId);
         IDataResult<List<CarDetailDto>> GetCarDetails();
