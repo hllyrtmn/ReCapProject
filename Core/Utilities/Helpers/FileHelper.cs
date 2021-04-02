@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using System.Runtime.InteropServices.ComTypes;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 

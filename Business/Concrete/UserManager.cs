@@ -4,6 +4,7 @@ using System.Text;
 using Business.Abstract;
 using Business.Constant.Message;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Entities.Concrete;
@@ -24,7 +25,7 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-
+        [CacheAspect]
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserListed);

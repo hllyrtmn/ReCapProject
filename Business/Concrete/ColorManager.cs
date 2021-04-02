@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.Constant.Message;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -19,7 +20,7 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
-
+        [CacheAspect]
         public IDataResult<List<Color>> GetAll()
         {
            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.ColorListed);

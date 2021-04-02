@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constant.Message;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -18,7 +20,7 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
-
+        [CacheAspect]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalListed);
@@ -35,6 +37,8 @@ namespace Business.Concrete
                     return new ErrorResult(Messages.InvalidRental);
                 }
             }
+            business.RentDate = DateTime.Now;
+
             _rentalDal.Add(business);
             return new SuccessResult(Messages.RentalAdded);
             
@@ -55,6 +59,11 @@ namespace Business.Concrete
         public IDataResult<Rental> GetById(int id)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.RentalId == id));
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalDetail()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetail(),Messages.RentalDetailListed);
         }
     }
 }

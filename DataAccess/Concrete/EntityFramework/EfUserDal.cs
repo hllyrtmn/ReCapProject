@@ -13,23 +13,6 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfUserDal : EfEntityRepositoryBase<User, ReCapDbContext>, IUserDal
     {
-        //public List<UserForRegisterDto> GetUserForRegister()
-        //{
-        //    using (var context = new ReCapDbContext())
-        //    {
-        //        var result = from user in context.Users
-        //            select new UserForRegisterDto()
-        //            {
-        //                FirstName = user.FirstName,
-        //                LastName = user.LastName,
-        //                Password = user.Password,
-        //                Email = user.Email
-        //            };
-        //        return result.ToList();
-        //    }
-            
-        //}
-
         public List<OperationClaim> GetClaims(User user)
         {
             using (var context = new ReCapDbContext())

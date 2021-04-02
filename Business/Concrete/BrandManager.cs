@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constant.Message;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -19,11 +20,9 @@ namespace Business.Concrete
             _brandDal = brandDal;
 
         }
-
+        [CacheAspect]
         public IDataResult<List<Brand>>  GetAll()
         {
-
-
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandListed);
         }
 

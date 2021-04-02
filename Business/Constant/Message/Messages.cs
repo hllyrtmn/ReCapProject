@@ -74,7 +74,7 @@ namespace Business.Constant.Message
         public static string RentalCarIdNotEmpty = "Car ID is can not empty";
         public static string RentalRentDateNotEmpty = "Rental date is can not empty";
         public static string RentalCustomerIdNotEmpty = "Customer ID is can not empty";
-
+        public static string RentalDetailListed = "Rental details are listed";
 
 
         public static string CarImageIdNotEmpty = "Car image id is not empty";
@@ -98,5 +98,6 @@ namespace Business.Constant.Message
         public static string UserRegistered = "User was successfully registered";
         public static string AccessTokenCreated = "Token was created";
         public static string NotAutorized = "You are not authorized";
+        
     }
 }
