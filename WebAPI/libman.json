@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "filesystem",
+  "libraries": [
+    {
+      "library": "images/",
+      "destination": "wwwroot/images/"
+    }
+  ]
+}

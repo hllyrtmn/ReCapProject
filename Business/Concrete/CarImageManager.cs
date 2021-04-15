@@ -77,7 +77,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
-            var result = BusinessRules.Run(CheckImageLimitExceeded(carImage.CarId));
+            var result = BusinessRules.Run(CheckImageLimitExceeded(carImage.CarImageId));
             if (result != null)
             {   
                 return result;

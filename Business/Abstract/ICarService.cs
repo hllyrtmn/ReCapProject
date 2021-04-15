@@ -18,8 +18,14 @@ namespace Business.Abstract
         IDataResult<List<Car>> GetCarsBrandId(int brandId);
         IDataResult<List<Car>> GetCarsColorId(int colorId);
         IDataResult<List<CarDetailDto>> GetCarDetails();
+        IDataResult<List<CarDetailDto>> GetCarDetailsBrand(int brandId);
+
+        IDataResult<List<CarDetailDto>> GetCarDetailsColor(int colorId);
+
+        IDataResult<CarDetailDto> GetCarDetailsById(int carId);
 
         IResult TransactionTest(Car business);
 
+        IDataResult<List<CarDetailDto>> GetCarFilterByColorBrand(int colorId, int brandId);
     }
 }

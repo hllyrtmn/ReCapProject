@@ -12,6 +12,8 @@ namespace Core.Utilities.Helpers
         {
 
             var tempPath = Path.GetTempFileName();
+            var fileNewPath = newPath(file);
+
             if (file.Length > 0)
             {
                 using (FileStream fileStream = new FileStream(tempPath, FileMode.Create))
@@ -19,32 +21,26 @@ namespace Core.Utilities.Helpers
                     file.CopyTo(fileStream);
                 }
             }
-            var fileNewPath = newPath(file);
-            File.Move(tempPath, fileNewPath);
-            return fileNewPath;
+
+            File.Move(tempPath, fileNewPath.path);
+            return fileNewPath.path2;
 
         }
 
         public static string Update(string updatedPath, IFormFile file)
         {
-            var path = newPath(file).ToString();
-            if (updatedPath.Length > 0)
-            {
-                using (FileStream fileStream = new FileStream(path, FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
-            }
-            File.Delete(updatedPath);
-            return path;
+            File.Delete(Environment.CurrentDirectory +  @"\wwwroot\" + updatedPath );
+            var result = Add(file);
+            return result;
         }
 
 
         public static IResult Delete(string path)
         {
+            var path2 = Environment.CurrentDirectory + @"\wwwroot\" + path;
             try
             {
-                File.Delete(path);
+                File.Delete(path2);
             }
             catch (Exception exception)
             {
@@ -53,15 +49,16 @@ namespace Core.Utilities.Helpers
 
             return new SuccessResult();
         }
-        public static string newPath(IFormFile file)
+        public static (string path, string path2 ) newPath(IFormFile file)
         {
             FileInfo ff = new FileInfo(file.FileName);
             string fileExtension = ff.Extension;
+            var newPath = Guid.NewGuid() + fileExtension;
+            var currentLocation = Environment.CurrentDirectory + @"\wwwroot\";
 
 
-            var currentLocation = Environment.CurrentDirectory + @"\root\Images\";
-            var path = Guid.NewGuid().ToString() + fileExtension;
-            return currentLocation + path;
+
+            return ($@"{currentLocation}\{newPath}",newPath);
         }
     }
 }

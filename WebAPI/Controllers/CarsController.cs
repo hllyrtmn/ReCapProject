@@ -41,7 +41,20 @@ namespace WebAPI.Controllers
             var result = _carService.GetById(id);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getdetailbyid")]
+
+        public IActionResult GetGetCarDetailsById(int id)
+        {
+            var result = _carService.GetCarDetailsById(id);
+            if (result.Success)
+            {
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
@@ -51,10 +64,10 @@ namespace WebAPI.Controllers
 
         public IActionResult GetCarsBrandId(int id)
         {
-            var result = _carService.GetCarsBrandId(id);
+            var result = _carService.GetCarDetailsBrand(id);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
@@ -63,10 +76,10 @@ namespace WebAPI.Controllers
 
         public IActionResult GetCarsColorId(int id)
         {
-            var result = _carService.GetCarsColorId(id);
+            var result = _carService.GetCarDetailsColor(id);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
@@ -120,6 +133,20 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("getcarfilterbycolorbrand")]
+
+        public IActionResult GetCarFilterByColorBrand(int colorId,int brandId)
+        {
+                var result = _carService.GetCarFilterByColorBrand(colorId,brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+        }
+
+
 
         [HttpPost("transactiontest")]
 
@@ -128,9 +155,6 @@ namespace WebAPI.Controllers
             var result = _carService.Add(car);
 
             return Ok(result);
-
-
-
         }
 
 

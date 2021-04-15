@@ -84,6 +84,21 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
+        public IDataResult<List<CarDetailDto>> GetCarDetailsBrand(int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsBrand(brandId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsColor(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsColor(colorId));
+        }
+
+        public IDataResult<CarDetailDto> GetCarDetailsById(int carId)
+        {
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetailsById(carId));
+        }
+
         [TransactionScopeAspect]
         public IResult TransactionTest(Car business)
         {
@@ -94,6 +109,12 @@ namespace Business.Concrete
             }
             _carDal.Add(business);
             return null;
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarFilterByColorBrand(int colorId, int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>( _carDal.GetCarFilterByColorBrand(colorId, brandId));
+
         }
     }
 }

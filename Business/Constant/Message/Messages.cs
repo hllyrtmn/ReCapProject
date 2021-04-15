@@ -98,6 +98,10 @@ namespace Business.Constant.Message
         public static string UserRegistered = "User was successfully registered";
         public static string AccessTokenCreated = "Token was created";
         public static string NotAutorized = "You are not authorized";
-        
+        public static string CardAdded = "Credit card was added";
+        public static string CardGetAll = "Credit cards was listed";
+        public static string CardDeleted = "Credit card was deleted";
+        public static string CardGetById = "Credit card was filter by id";
+        public static string RentalReturnDateNull = "The car can not be rented ";
     }
 }

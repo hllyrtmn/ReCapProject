@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.Constant.Message;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -26,18 +30,15 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalListed);
 
         }
-
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental business)
         {
-            var rentedCars = _rentalDal.GetAll(r => r.CarId == business.CarId);
-            foreach (var rentedCar in rentedCars)
+            var rentedCars = BusinessRules.Run(CantItBeRented(business.CarId,business.RentDate,(DateTime) business.ReturnDate));
+
+            if (rentedCars != null)
             {
-                if (rentedCar.ReturnDate == null)
-                {
-                    return new ErrorResult(Messages.InvalidRental);
-                }
+                return new ErrorResult(Messages.RentalReturnDateNull);
             }
-            business.RentDate = DateTime.Now;
 
             _rentalDal.Add(business);
             return new SuccessResult(Messages.RentalAdded);
@@ -64,6 +65,31 @@ namespace Business.Concrete
         public IDataResult<List<RentalDetailDto>> GetRentalDetail()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetail(),Messages.RentalDetailListed);
+        }
+
+
+        private IResult CantItBeRented(int carId, DateTime rentDate, DateTime returnDate)
+        {
+            var rentalResult = _rentalDal.GetAll(c => c.CarId == carId).Any();
+            if (rentalResult)
+            {
+                var result = _rentalDal.GetAll(c=>c.CarId == carId);
+                foreach (var rental in result)
+                {
+                    if (rental.ReturnDate == null)
+                    {
+                        return new ErrorResult(Messages.RentalReturnDateNull);
+                    }
+                    var rentRange = DateTime.Compare((DateTime)rental.ReturnDate, rentDate);
+                    var returnRange = DateTime.Compare((DateTime)rental.RentDate,returnDate);
+
+                    if (rentRange > 0 || returnRange > 0)
+                    {
+                        return new ErrorResult(Messages.RentalReturnDateNull);
+                    }
+                }
+            }
+            return new SuccessResult(Messages.RentalAdded);
         }
     }
 }

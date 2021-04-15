@@ -12,20 +12,20 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ColorsController : ControllerBase
+    public class CardsController : ControllerBase
     {
-        IColorService _colorService;
+        ICardService _cardService;
 
-        public ColorsController(IColorService colorService)
+        public CardsController(ICardService cardService)
         {
-            _colorService = colorService;
+            _cardService = cardService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
             Thread.Sleep(500);
-            var result = _colorService.GetAll();
+            var result = _cardService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _colorService.GetById(id);
+            var result = _cardService.GetById(id);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -47,9 +47,9 @@ namespace WebAPI.Controllers
 
         [HttpPost("add")]
 
-        public IActionResult Add(Color color)
+        public IActionResult Add(Card card)
         {
-            var result = _colorService.Add(color);
+            var result = _cardService.Add(card);
             if (result.Success)
             {
                 return Ok(result);
@@ -59,9 +59,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Color color)
+        public IActionResult Delete(Card card)
         {
-            var result = _colorService.Delete(color);
+            var result = _cardService.Delete(card);
             if (result.Success)
             {
                 return Ok(result);
@@ -70,17 +70,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("update")]
-
-        public IActionResult Update(Color color)
-        {
-            var result = _colorService.Update(color);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
+        
         }
     }
-}
+
